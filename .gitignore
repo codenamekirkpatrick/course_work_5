@@ -166,3 +166,4 @@ poetry.lock
 # Virtual environment
 /env/
 .venv/
+database.ini
