@@ -1,16 +1,16 @@
 import psycopg2
 
-
 class DBManager:
-    """Класс, который подключается к БД PostgreSQL."""
+    """Класс подключения к БД PostgreSQL"""
 
     def __init__(self, params):
+        """Инициализатор класса"""
         self.conn = psycopg2.connect(dbname='hh', **params)
         self.cur = self.conn.cursor()
 
     def get_companies_and_vacancies_count(self):
         """
-        получает список всех компаний и количество вакансий у каждой компании.
+        Получение списка всех компаний и количества вакансий у каждой компании
         """
         self.cur.execute("""
         SELECT employers.employer_name, COUNT(vacancy.employer_id)
@@ -24,7 +24,8 @@ class DBManager:
 
     def get_all_vacancies(self):
         """
-        получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию
+        Получение списка всех вакансий с указанием названий компании,
+        вакансии и зарплаты, а также ссылки на вакансию
         """
         self.cur.execute("""
         SELECT employers.employer_name, vacancy_name, salary, vacancy_url
@@ -35,7 +36,7 @@ class DBManager:
 
     def get_avg_salary(self):
         """
-        получает среднюю зарплату по вакансиям
+        Получение средней зарплаты по вакансиям
         """
         self.cur.execute("""
         SELECT avg(salary) from vacancy""")
@@ -43,7 +44,7 @@ class DBManager:
 
     def get_vacancies_with_higher_salary(self):
         """
-        получает список всех вакансий, у которых зарплата выше средней по всем вакансиям
+        Получение списка всех вакансий, у которых зарплата выше средней по всем вакансиям
         """
         self.cur.execute("""
         SELECT vacancy_name, salary
@@ -56,7 +57,7 @@ class DBManager:
 
     def get_vacancies_with_keyword(self, keyword):
         """
-        получает список всех вакансий, в названии которых содержатся переданные в метод слова
+        Получение списка всех вакансий, в названии которых содержатся переданные в метод слова
         """
         request_sql = """
         SELECT * FROM vacancy
