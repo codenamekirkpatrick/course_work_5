@@ -50,10 +50,10 @@ class DBManager:
         SELECT vacancy_name, salary
         FROM vacancy
         GROUP BY vacancy_name, salary
-        having salary > (SELECT AVG(salary) FROM vacancy)
         ORDER BY salary DESC
         """)
         return self.cur.fetchall()
+
 
     def get_vacancies_with_keyword(self, keyword):
         """
