@@ -69,7 +69,8 @@ def create_database(database_name: str, params: dict) -> None:
                 salary INTEGER,
                 employer_id INTEGER,
                 vacancy_url VARCHAR
-            )
+            );
+            ALTER TABLE vacancy ADD CONSTRAINT fk_vacancy_employers FOREIGN KEY(employer_id) REFERENCES employers(employer_id)
         """)
 
     conn.commit()
